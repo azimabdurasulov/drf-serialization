@@ -41,7 +41,7 @@ serializer = TaskSerializer(task)
 serializer.data
 ```
 
-## deserialization json to object
+## Deserialization json to object
 
 ```python
 data = {
