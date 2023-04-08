@@ -1,6 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.request import Request
 from rest_framework.response import Response
+from django.core.exceptions import ObjectDoesNotExist
 
 from .models import Task
 from .serializers import TaskSerializer
@@ -24,3 +25,17 @@ class TaskView(APIView):
         
         return Response(serialzer.errors)
     
+    def put(self, request: Request, pk: int) -> Response:
+        '''uodate task'''
+        try:
+            task = Task.objects.get(id=pk)
+        except ObjectDoesNotExist:
+            return Response({'error': 'does not exist'})
+        
+        data = request.data
+        serializer = TaskSerializer(task, data=data, partial=True)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors)
