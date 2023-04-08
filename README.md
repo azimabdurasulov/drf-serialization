@@ -33,7 +33,11 @@ class TaskSerializer(serializers.Serializer):
     done        = serializers.BooleanField()
 
     def create(self, validated_data):
-        return Task(**validated_data)
+        task = Task(id=validated_data['id'],
+                    title=validated_data['title'],
+                    description=validated_data['description'],
+                    done=validated_data['done'])
+        return task
 ```
 
 - TaskSerializer to json
