@@ -11,5 +11,6 @@ class TaskSerializer(serializers.Serializer):
     def to_representation(self, instance):
         return {
             "id": instance.id,
-            "name": instance.title
+            "name": instance.title,
+            "info": f'{instance.description} - {instance.completed}'
         }
