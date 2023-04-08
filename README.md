@@ -45,7 +45,8 @@ class TaskSerializer(serializers.Serializer):
 ```python
 task = Task(1, 'title', 'description', False)
 serializer = TaskSerializer(task)
-serializer.data
+data = serializer.data
+print(data)
 ```
 
 ## Deserialization json to object
