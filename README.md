@@ -31,6 +31,9 @@ class TaskSerializer(serializers.Serializer):
     title       = serializers.CharField()
     description = serializers.CharField()
     done        = serializers.BooleanField()
+
+    def create(self, validated_data):
+        return Task(**validated_data)
 ```
 
 - TaskSerializer to json
