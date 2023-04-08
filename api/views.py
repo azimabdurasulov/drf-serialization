@@ -9,8 +9,8 @@ from .serializers import TaskSerializer
 class TaskView(APIView):
     def get(self, request: Request) -> Response:
         '''get all tasks'''
-        task = Task.objects.first()
-        serializer = TaskSerializer(task)
+        tasks = Task.objects.all()
+        serializer = TaskSerializer(tasks, many=True)
         data = serializer.data
         return Response(data)
     
