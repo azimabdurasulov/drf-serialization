@@ -1,5 +1,6 @@
 from rest_framework import serializers
 
+
 class Task():
     def __init__(self, id, title, description, done):
         self.id          = id
@@ -14,17 +15,9 @@ class TaskSerializer(serializers.Serializer):
     description = serializers.CharField()
     done        = serializers.BooleanField()
 
-    def create(self, validated_data):
-        return Task(**validated_data)
 
+task = Task(1, 'title', 'nimadir', True)
 
-data = {
-    'id': 1,
-    'title': 'title',
-    'description': 'description',
-    'done': False
-}
-serializer = TaskSerializer(data=data)
-if serializer.is_valid():
-    task = serializer.save()
-    print(task.title)
+serializer = TaskSerializer(task)
+data = serializer.data
+print(data)
