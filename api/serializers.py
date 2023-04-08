@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from .models import Task
 
 
 class TaskSerializer(serializers.Serializer):
@@ -14,3 +15,10 @@ class TaskSerializer(serializers.Serializer):
             "name": instance.title,
             "info": f'{instance.description} - {instance.completed}'
         }
+    
+    def create(self, validated_data):
+        return Task.objects.create(
+            title=validated_data['title'],
+            completed=validated_data['completed'],
+            description=validated_data['description'],
+        )

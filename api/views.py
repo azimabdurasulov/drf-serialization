@@ -14,3 +14,13 @@ class TaskView(APIView):
         data = serializer.data
         return Response(data)
     
+    def post(self, request: Request) -> Response:
+        '''add task'''
+        data = request.data
+        serialzer = TaskSerializer(data=data)
+        if serialzer.is_valid():
+            serialzer.save()
+            return Response(serialzer.data)
+        
+        return Response(serialzer.errors)
+    
