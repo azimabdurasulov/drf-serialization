@@ -45,5 +45,14 @@ class TaskView(APIView):
 class UserView(APIView):
     def get(self, request: Request,user:str) -> Response:
         '''Get all user's tasks'''
-        return Response({'user':user})
+        user = User.objects.get(username=user)
+        tasks = Task.objects.filter(student=user)
+        serializer = TaskSerializer(tasks, many=True)
+        return Response(
+            {
+            'first_name': user.first_name,
+            'last_name': user.last_name,
+            'tasks': serializer.data
+            }
+        )
     
