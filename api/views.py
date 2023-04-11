@@ -5,7 +5,8 @@ from django.core.exceptions import ObjectDoesNotExist
 
 from .models import Task
 from .serializers import TaskSerializer
-
+# Import the user model
+from django.contrib.auth.models import User
 
 class TaskView(APIView):
     def get(self, request: Request) -> Response:
@@ -39,3 +40,10 @@ class TaskView(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors)
+    
+# Get all users
+class UserView(APIView):
+    def get(self, request: Request,user:str) -> Response:
+        '''Get all user's tasks'''
+        return Response({'user':user})
+    

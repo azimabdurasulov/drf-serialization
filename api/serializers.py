@@ -7,8 +7,8 @@ class TaskSerializer(serializers.ModelSerializer):
         model = Task
         fields = '__all__'
 
-    def to_representation(self, instance):
-        return {
-            "id": instance.id,
-            "title": instance.title,
-        }
+    # def to_representation(self, instance):
+    #     return {
+    #         "id": instance.id,
+    #         "title": instance.title,
+    #     }
