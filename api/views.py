@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from django.core.exceptions import ObjectDoesNotExist
 
 from .models import Task
-from .serializers import TaskSerializer
+from .serializers import TaskSerializer, UserSerializer
 # Import the user model
 from django.contrib.auth.models import User
 
@@ -46,13 +46,8 @@ class UserView(APIView):
     def get(self, request: Request,user:str) -> Response:
         '''Get all user's tasks'''
         user = User.objects.get(username=user)
-        tasks = Task.objects.filter(student=user)
-        serializer = TaskSerializer(tasks, many=True)
-        return Response(
-            {
-            'first_name': user.first_name,
-            'last_name': user.last_name,
-            'tasks': serializer.data
-            }
-        )
+        serializer = UserSerializer(user)
+        data = serializer.data
+        return Response(data)
+  
     
