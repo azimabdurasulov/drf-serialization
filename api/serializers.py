@@ -4,24 +4,15 @@ from django.contrib.auth.models import User
 
 
 class TaskSerializer(serializers.ModelSerializer):
-    student = serializers.StringRelatedField()
+    
     class Meta:
         model = Task
-        fields = '__all__'
+        fields = ('id', 'title')
 
-    # def to_representation(self, instance):
-    #     return {
-    #         "id": instance.id,
-    #         "title": instance.title,
-    #     }
 
 class UserSerializer(serializers.ModelSerializer):
-    tasks = serializers.SlugRelatedField(
-        many=True,
-        read_only=True,
-        slug_field='completed'
-    )
+    tasks = TaskSerializer(many=True, read_only=True)
 
     class Meta:
         model = User
-        fields = ('username', 'tasks')
+        fields = ('id', 'username', 'tasks')
