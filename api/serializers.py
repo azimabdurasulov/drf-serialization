@@ -16,8 +16,12 @@ class TaskSerializer(serializers.ModelSerializer):
     #     }
 
 class UserSerializer(serializers.ModelSerializer):
-    tasks = serializers.StringRelatedField(many=True, read_only=True)
-    
+    tasks = serializers.SlugRelatedField(
+        many=True,
+        read_only=True,
+        slug_field='completed'
+    )
+
     class Meta:
         model = User
         fields = ('username', 'tasks')
