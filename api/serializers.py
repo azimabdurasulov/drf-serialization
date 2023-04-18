@@ -4,7 +4,15 @@ from django.contrib.auth.models import User
 
 
 class TaskSerializer(serializers.ModelSerializer):
-    student = serializers.StringRelatedField()
+
+    title = serializers.CharField(
+        max_length=10,
+        required=True,
+     
+        )
+ 
+
+    
     class Meta:
         model = Task
         fields = '__all__'
@@ -16,7 +24,11 @@ class TaskSerializer(serializers.ModelSerializer):
     #     }
 
 class UserSerializer(serializers.ModelSerializer):
-    tasks = TaskSerializer(many=True, read_only=True)
+    
+    # tasks_id = serializers.PrimaryKeyRelatedField(many=True, read_only=True, source='tasks')
+   
+
+
     class Meta:
         model = User
-        fields = ['id', 'username', 'first_name', 'last_name', 'tasks']
+        fields = ['id', 'username', 'first_name', 'last_name', 'tasks_link']
