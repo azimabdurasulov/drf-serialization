@@ -23,12 +23,15 @@ class TaskView(APIView):
     def post(self, request: Request) -> Response:
         '''add task'''
         data = request.data
-        serialzer = TaskSerializer(data=data)
-        if serialzer.is_valid():
-            serialzer.save()
-            return Response(serialzer.data)
+        user = request.user 
+        task = Task.objects.create(
+            title=data['title'],
+            description=data['description'],
+            student=user,
+        )
+        task.save()
+        return Response(data)
         
-        return Response(serialzer.errors)
     
     def put(self, request: Request, pk: int) -> Response:
         '''uodate task'''
