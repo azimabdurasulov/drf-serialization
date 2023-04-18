@@ -2,16 +2,20 @@ from rest_framework.views import APIView
 from rest_framework.request import Request
 from rest_framework.response import Response
 from django.core.exceptions import ObjectDoesNotExist
-
+# add this for authentication
+from rest_framework.permissions import IsAuthenticated 
 from .models import Task
 from .serializers import TaskSerializer, UserSerializer
 # Import the user model
 from django.contrib.auth.models import User
 
 class TaskView(APIView):
+ 
+    permission_classes = [IsAuthenticated] # 
     def get(self, request: Request) -> Response:
         '''get all tasks'''
-        tasks = Task.objects.all()
+        user = request.user
+        tasks = Task.objects.filter(student=user)
         serializer = TaskSerializer(tasks, many=True)
         data = serializer.data
         return Response(data)
