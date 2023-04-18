@@ -50,4 +50,3 @@ class UserView(APIView):
         data = serializer.data
         return Response(data)
   
-    
