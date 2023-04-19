@@ -8,6 +8,5 @@ class Task(models.Model):
     created     = models.DateTimeField(auto_now_add=True)
     student     = models.ForeignKey(User, on_delete=models.CASCADE, related_name='tasks')
 
-
     def __str__(self):
         return f'{self.title} - {self.completed}'
